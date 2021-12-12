@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Interfaces\Caching\IDistributedCacheManager.cs~RF30f427a0.TMP" />
+    <None Remove="Interfaces\Repositories\ITestRepository.cs~RF25967d5c.TMP" />
+  </ItemGroup>
+
+</Project>
