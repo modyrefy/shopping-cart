@@ -24,6 +24,7 @@ namespace Server.Infrastructure.Repositories.EFCore
 
         public IRepository<Brands> BrandsRepository =>  new EfCoreRepository<Brands>(this.DbContext);
         public IRepository<Users> UsersRepository => new EfCoreRepository<Users>(this.DbContext);
+        public IRepository<ExceptionLogs> ExceptionLogsRepository => new EfCoreRepository<ExceptionLogs>(this.DbContext);
         public ITestRepository TestRepository => new CustomTestRepository(DbContext);
         // public  ITestRepository TestRepository =>new TestRepository(DbContext);
     }

@@ -33,6 +33,7 @@ namespace Server.Api.Controllers
             //    var tokenString = GenerateJSONWebToken(user);
             //    response = Ok(new { token = tokenString });
             //}
+            //throw new Exception("general error occurred");
             AuthincateUserProcessor processor;
             using ((processor = new AuthincateUserProcessor(_requestContext)) as IDisposable)
             {
@@ -53,14 +54,7 @@ namespace Server.Api.Controllers
             int x = 0;
             int y = 1;
             // int z = y / x;
-            try
-            {
                 throw new Exception("general error occurred");
-            }
-            catch (Exception ex)
-            { 
-            
-            }
             return Ok(Guid.NewGuid().ToString());
         }
     }

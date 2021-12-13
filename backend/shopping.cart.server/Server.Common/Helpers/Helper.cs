@@ -27,35 +27,35 @@ namespace Server.Common.Helpers
         public ActiveUserContext GetCurrentUserFromTokenContext(TokenValidatedContext context)
         {
             ActiveUserContext activeUserContext = null;
-            try
-            {
+            //try
+            //{
                 var userId = context.Principal.Claims.Where(p => p.Type == "UserId").FirstOrDefault();
-                if (userId == null && !string.IsNullOrEmpty(userId.Value))
+                if (userId != null && !string.IsNullOrEmpty(userId.Value))
                 {
                     activeUserContext = context.HttpContext.RequestServices.GetRequiredService<IRequestContext>().DistributedCacheManager.GetOrSet<ActiveUserContext>($"user-{userId.Value}", null, null);
                 }
-            }
-            catch (Exception ex)
-            {
-                activeUserContext = null;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    activeUserContext = null;
+            //}
             return activeUserContext;
         }
         public string GetTokenValueFromTokenContext(TokenValidatedContext context)
         {
             string token = null;
-            try
-            {
+            //try
+            //{
                 context.Request.Headers.TryGetValue("Authorization", out Microsoft.Extensions.Primitives.StringValues authorizationToken);
                 if (!string.IsNullOrEmpty(authorizationToken))
                 {
                     token = authorizationToken.ToString().Replace("Bearer", "").Trim();
                 }
-            }
-            catch (Exception ex)
-            {
-                 token = null;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //     token = null;
+            //}
             return token;
         }
     }

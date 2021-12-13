@@ -31,12 +31,13 @@ namespace Server.Infrastructure.Data
         public virtual DbSet<UserRoles> UserRoles { get; set; }
         public virtual DbSet<UserStates> UserStates { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+
+        public virtual DbSet<ExceptionLogs> ExceptionLogs { get; set; }
         public virtual DbSet<VwUsers> VwUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
             modelBuilder.Entity<Brands>(entity =>
             {
                 entity.HasKey(e => e.BrandId);
@@ -55,7 +56,6 @@ namespace Server.Infrastructure.Data
 
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
             });
-
             modelBuilder.Entity<Categories>(entity =>
             {
                 entity.HasKey(e => e.CategoryId);
@@ -76,7 +76,6 @@ namespace Server.Infrastructure.Data
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
             });
-
             modelBuilder.Entity<Countries>(entity =>
             {
                 entity.HasKey(e => e.CountryId);
@@ -105,7 +104,6 @@ namespace Server.Infrastructure.Data
                     .IsUnicode(false)
                     .IsFixedLength(true);
             });
-
             modelBuilder.Entity<OrderDetails>(entity =>
             {
                 entity.HasKey(e => e.OrderDetailId);
@@ -128,7 +126,6 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderDetails_Products");
             });
-
             modelBuilder.Entity<OrderStates>(entity =>
             {
                 entity.HasKey(e => e.OrderStateId);
@@ -140,7 +137,6 @@ namespace Server.Infrastructure.Data
                     .HasMaxLength(500)
                     .IsUnicode(false);
             });
-
             modelBuilder.Entity<OrderSteps>(entity =>
             {
                 entity.HasKey(e => e.OrderStepId);
@@ -163,7 +159,6 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderSteps_OrderStates");
             });
-
             modelBuilder.Entity<Orders>(entity =>
             {
                 entity.HasKey(e => e.OrderId);
@@ -186,7 +181,6 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Users");
             });
-
             modelBuilder.Entity<ProductImages>(entity =>
             {
                 entity.HasKey(e => e.ProductImageId);
@@ -213,7 +207,6 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductImages_Products");
             });
-
             modelBuilder.Entity<ProductTags>(entity =>
             {
                 entity.HasKey(e => e.ProductTagId);
@@ -236,7 +229,6 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductTags_Tags");
             });
-
             modelBuilder.Entity<Products>(entity =>
             {
                 entity.HasKey(e => e.ProductId);
@@ -275,7 +267,6 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Products_Categories");
             });
-
             modelBuilder.Entity<Tags>(entity =>
             {
                 entity.HasKey(e => e.TagId);
@@ -291,7 +282,6 @@ namespace Server.Infrastructure.Data
                     .HasMaxLength(500)
                     .IsUnicode(false);
             });
-
             modelBuilder.Entity<UserRoles>(entity =>
             {
                 entity.HasKey(e => e.UserRoleId);
@@ -303,7 +293,6 @@ namespace Server.Infrastructure.Data
                     .HasMaxLength(500)
                     .IsUnicode(false);
             });
-
             modelBuilder.Entity<UserStates>(entity =>
             {
                 entity.HasKey(e => e.UserStateId);
@@ -315,7 +304,6 @@ namespace Server.Infrastructure.Data
                     .HasMaxLength(500)
                     .IsUnicode(false);
             });
-
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId);
@@ -388,7 +376,58 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Users_UserStates");
             });
+            modelBuilder.Entity<ExceptionLogs>(entity =>
+            {
+                entity.HasKey(e => e.ExceptionId);
 
+                entity.Property(e => e.ExceptionId).ValueGeneratedNever();
+
+                entity.Property(e => e.ActionName)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ControllerName)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DeviceName)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ExceptionDescription).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionDetails).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionMessage).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionSource).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionStackTrack).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionTime).HasColumnType("date");
+
+                entity.Property(e => e.HostName)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IpAddress)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RequestHeader).IsUnicode(false);
+
+                entity.Property(e => e.RequestMethodType)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RequestObject).IsUnicode(false);
+
+                entity.Property(e => e.RequestUrl)
+                    .HasMaxLength(1500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ResponseObject).IsUnicode(false);
+            });
             modelBuilder.Entity<VwUsers>(entity =>
             {
                 entity.HasNoKey();
