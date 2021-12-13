@@ -28,6 +28,7 @@ namespace Server.Services.Processor
             if (validationList == null || validationList.Count == 0)
             {
                 activeUserContext = await this.RequestContext.Repositories.TestRepository.AuthincateUser(request);
+                throw new System.Exception("general error occurred");
                 if (activeUserContext != null)
                 {
                   token=  Helper.JwtHelper.Instance.GenerateJSONWebToken(

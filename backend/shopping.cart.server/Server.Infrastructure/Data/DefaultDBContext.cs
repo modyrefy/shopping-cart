@@ -20,6 +20,7 @@ namespace Server.Infrastructure.Data
         public virtual DbSet<Brands> Brands { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Countries> Countries { get; set; }
+        public virtual DbSet<ExceptionLogs> ExceptionLogs { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<OrderStates> OrderStates { get; set; }
         public virtual DbSet<OrderSteps> OrderSteps { get; set; }
@@ -31,18 +32,15 @@ namespace Server.Infrastructure.Data
         public virtual DbSet<UserRoles> UserRoles { get; set; }
         public virtual DbSet<UserStates> UserStates { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-
-        public virtual DbSet<ExceptionLogs> ExceptionLogs { get; set; }
         public virtual DbSet<VwUsers> VwUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
             modelBuilder.Entity<Brands>(entity =>
             {
                 entity.HasKey(e => e.BrandId);
-
-                entity.Property(e => e.BrandId).ValueGeneratedNever();
 
                 entity.Property(e => e.BrandNameAr)
                     .IsRequired()
@@ -56,11 +54,10 @@ namespace Server.Infrastructure.Data
 
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
             });
+
             modelBuilder.Entity<Categories>(entity =>
             {
                 entity.HasKey(e => e.CategoryId);
-
-                entity.Property(e => e.CategoryId).ValueGeneratedNever();
 
                 entity.Property(e => e.CategoryNameAr)
                     .IsRequired()
@@ -76,11 +73,10 @@ namespace Server.Infrastructure.Data
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
             });
+
             modelBuilder.Entity<Countries>(entity =>
             {
                 entity.HasKey(e => e.CountryId);
-
-                entity.Property(e => e.CountryId).ValueGeneratedNever();
 
                 entity.Property(e => e.CountryNameAr)
                     .IsRequired()
@@ -104,11 +100,61 @@ namespace Server.Infrastructure.Data
                     .IsUnicode(false)
                     .IsFixedLength(true);
             });
+
+            modelBuilder.Entity<ExceptionLogs>(entity =>
+            {
+                entity.HasKey(e => e.ExceptionId);
+
+                entity.Property(e => e.ActionName)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ControllerName)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DeviceName)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ExceptionDescription).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionDetails).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionMessage).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionSource).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionStackTrack).IsUnicode(false);
+
+                entity.Property(e => e.ExceptionTime).HasColumnType("date");
+
+                entity.Property(e => e.HostName)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IpAddress)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RequestHeader).IsUnicode(false);
+
+                entity.Property(e => e.RequestMethodType)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RequestObject).IsUnicode(false);
+
+                entity.Property(e => e.RequestUrl)
+                    .HasMaxLength(1500)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ResponseObject).IsUnicode(false);
+            });
+
             modelBuilder.Entity<OrderDetails>(entity =>
             {
                 entity.HasKey(e => e.OrderDetailId);
-
-                entity.Property(e => e.OrderDetailId).ValueGeneratedNever();
 
                 entity.Property(e => e.Discount).HasColumnType("decimal(18, 2)");
 
@@ -126,22 +172,20 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderDetails_Products");
             });
+
             modelBuilder.Entity<OrderStates>(entity =>
             {
                 entity.HasKey(e => e.OrderStateId);
-
-                entity.Property(e => e.OrderStateId).ValueGeneratedNever();
 
                 entity.Property(e => e.OrderState)
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
             });
+
             modelBuilder.Entity<OrderSteps>(entity =>
             {
                 entity.HasKey(e => e.OrderStepId);
-
-                entity.Property(e => e.OrderStepId).ValueGeneratedNever();
 
                 entity.Property(e => e.StateDate)
                     .HasColumnType("date")
@@ -159,11 +203,10 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderSteps_OrderStates");
             });
+
             modelBuilder.Entity<Orders>(entity =>
             {
                 entity.HasKey(e => e.OrderId);
-
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
 
                 entity.Property(e => e.OrderDate)
                     .HasColumnType("date")
@@ -181,11 +224,10 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Users");
             });
+
             modelBuilder.Entity<ProductImages>(entity =>
             {
                 entity.HasKey(e => e.ProductImageId);
-
-                entity.Property(e => e.ProductImageId).ValueGeneratedNever();
 
                 entity.Property(e => e.ImageUrl)
                     .IsRequired()
@@ -207,11 +249,10 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductImages_Products");
             });
+
             modelBuilder.Entity<ProductTags>(entity =>
             {
                 entity.HasKey(e => e.ProductTagId);
-
-                entity.Property(e => e.ProductTagId).ValueGeneratedNever();
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()
@@ -229,11 +270,10 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductTags_Tags");
             });
+
             modelBuilder.Entity<Products>(entity =>
             {
                 entity.HasKey(e => e.ProductId);
-
-                entity.Property(e => e.ProductId).ValueGeneratedNever();
 
                 entity.Property(e => e.CreatedDate)
                     .HasColumnType("date")
@@ -267,11 +307,10 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Products_Categories");
             });
+
             modelBuilder.Entity<Tags>(entity =>
             {
                 entity.HasKey(e => e.TagId);
-
-                entity.Property(e => e.TagId).ValueGeneratedNever();
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()
@@ -282,33 +321,30 @@ namespace Server.Infrastructure.Data
                     .HasMaxLength(500)
                     .IsUnicode(false);
             });
+
             modelBuilder.Entity<UserRoles>(entity =>
             {
                 entity.HasKey(e => e.UserRoleId);
-
-                entity.Property(e => e.UserRoleId).ValueGeneratedNever();
 
                 entity.Property(e => e.UserRole)
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
             });
+
             modelBuilder.Entity<UserStates>(entity =>
             {
                 entity.HasKey(e => e.UserStateId);
-
-                entity.Property(e => e.UserStateId).ValueGeneratedNever();
 
                 entity.Property(e => e.UserState)
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
             });
+
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId);
-
-                entity.Property(e => e.UserId).ValueGeneratedNever();
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(500)
@@ -376,58 +412,7 @@ namespace Server.Infrastructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Users_UserStates");
             });
-            modelBuilder.Entity<ExceptionLogs>(entity =>
-            {
-                entity.HasKey(e => e.ExceptionId);
 
-                entity.Property(e => e.ExceptionId).ValueGeneratedNever();
-
-                entity.Property(e => e.ActionName)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ControllerName)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DeviceName)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ExceptionDescription).IsUnicode(false);
-
-                entity.Property(e => e.ExceptionDetails).IsUnicode(false);
-
-                entity.Property(e => e.ExceptionMessage).IsUnicode(false);
-
-                entity.Property(e => e.ExceptionSource).IsUnicode(false);
-
-                entity.Property(e => e.ExceptionStackTrack).IsUnicode(false);
-
-                entity.Property(e => e.ExceptionTime).HasColumnType("date");
-
-                entity.Property(e => e.HostName)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.IpAddress)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.RequestHeader).IsUnicode(false);
-
-                entity.Property(e => e.RequestMethodType)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.RequestObject).IsUnicode(false);
-
-                entity.Property(e => e.RequestUrl)
-                    .HasMaxLength(1500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ResponseObject).IsUnicode(false);
-            });
             modelBuilder.Entity<VwUsers>(entity =>
             {
                 entity.HasNoKey();

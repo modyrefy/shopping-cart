@@ -33,7 +33,7 @@ namespace Server.Api.Controllers
             //    var tokenString = GenerateJSONWebToken(user);
             //    response = Ok(new { token = tokenString });
             //}
-            //throw new Exception("general error occurred");
+           
             AuthincateUserProcessor processor;
             using ((processor = new AuthincateUserProcessor(_requestContext)) as IDisposable)
             {
