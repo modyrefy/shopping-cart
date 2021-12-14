@@ -120,6 +120,12 @@
   <data name="address_missing" xml:space="preserve">
     <value>address missing (ar)</value>
   </data>
+  <data name="brand_not_exist" xml:space="preserve">
+    <value>brand not exist (ar)</value>
+  </data>
+  <data name="category_not_exist" xml:space="preserve">
+    <value>category not exist (ar)</value>
+  </data>
   <data name="city_missing" xml:space="preserve">
     <value>city name missing (ar)</value>
   </data>

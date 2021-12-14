@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Server.Core.BaseClasses;
 using Server.Model.Dto.User;
 using Server.Model.Interfaces.Context;
 using Server.Services.Processor.User;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Server.Api.Controllers
@@ -22,7 +24,7 @@ namespace Server.Api.Controllers
         #region post
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Authenticate([FromBody] UserAuthenticateRequestModel login)
+        public async Task<ResponseBase<ActiveUserContext>> Authenticate([FromBody] UserAuthenticateRequestModel login)
         {
             //IActionResult response = Unauthorized();
             //var user = AuthenticateUser(login);
@@ -37,28 +39,30 @@ namespace Server.Api.Controllers
             using ((processor = new AuthincateUserProcessor(_requestContext)) as IDisposable)
             {
                 var result = await processor.DoProcessAsync(login);
-                if (result.Errors != null && result.Errors.Count != 0)
-                {
-                    return Unauthorized(result);
-                }
-                return Ok(result);
+                Response.StatusCode = result.Errors != null && result.Errors.Count != 0 ? (int)HttpStatusCode.Unauthorized : (int)HttpStatusCode.OK;
+                return result;
+                //if (result.Errors != null && result.Errors.Count != 0)
+                //{
+                //    return Unauthorized(result);
+                //}
+                //return Ok(result);
             }
         }
 
        
         #endregion
         #region get
-        [HttpGet]
-        [Route("test")]
-        public IActionResult Test()
-        {
-            var p1 = _requestContext.ActiveUserContext;
-            int x = 0;
-            int y = 1;
-            // int z = y / x;
-                throw new Exception("general error occurred");
-            return Ok(Guid.NewGuid().ToString());
-        }
+        //[HttpGet]
+        //[Route("test")]
+        //public IActionResult Test()
+        //{
+        //    var p1 = _requestContext.ActiveUserContext;
+        //    int x = 0;
+        //    int y = 1;
+        //    // int z = y / x;
+        //        throw new Exception("general error occurred");
+        //    return Ok(Guid.NewGuid().ToString());
+        //}
         #endregion
     }
 }

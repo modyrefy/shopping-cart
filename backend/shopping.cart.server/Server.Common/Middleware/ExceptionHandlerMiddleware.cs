@@ -8,7 +8,6 @@ using Server.Model.Interfaces.Context;
 using Server.Model.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -100,10 +99,16 @@ namespace Server.Common.Middleware
                  HostName = hostname,
             DeviceName = Environment.MachineName,
         };
-                context.RequestServices.GetRequiredService < IRequestContext >().Repositories.ExceptionLogsRepository.ClearChangeTracker();
-                var result = await context.RequestServices.GetRequiredService<IRequestContext>().Repositories.ExceptionLogsRepository.InsertAsync(exceptionLogs);
-                var finalResult = await context.RequestServices.GetRequiredService<IRequestContext>().Repositories.ExceptionLogsRepository.SaveChangesAsync();            
-                return result?.ExceptionId.ToString();;
+
+            using var scope = context.RequestServices.CreateScope();
+            var requestContext = scope.ServiceProvider.GetRequiredService<IRequestContext>();
+            var result = await requestContext.Repositories.ExceptionLogRepository.InsertAsync(exceptionLogs);
+            var finalResult = await requestContext.Repositories.ExceptionLogRepository.SaveChangesAsync();
+            return result?.ExceptionId.ToString();
+            //context.RequestServices.GetRequiredService < IRequestContext >().Repositories.ExceptionLogsRepository.ClearChangeTracker();
+            //var result = await context.RequestServices.GetRequiredService<IRequestContext>().Repositories.ExceptionLogsRepository.InsertAsync(exceptionLogs);
+            //var finalResult = await context.RequestServices.GetRequiredService<IRequestContext>().Repositories.ExceptionLogsRepository.SaveChangesAsync();            
+            //return result?.ExceptionId.ToString();;
         }
         public List<ExceptionFrame> GetExceptionFrame(Exception error)
         {

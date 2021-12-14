@@ -7,7 +7,7 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": null,
+   "OutputPath": "p",
    "ProjectRootNamespace": "Server.Model",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,

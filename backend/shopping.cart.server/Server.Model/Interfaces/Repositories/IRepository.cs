@@ -26,14 +26,14 @@ namespace Server.Model.Interfaces.Repositories
         List<TEntity> GetAll();
         Task<List<TEntity>> GetAllAsync();
         //First Or Default
-        TEntity FirstOrDefault();
-        Task<TEntity> FirstOrDefaultAsync();
+        //TEntity FirstOrDefault();
+        //Task<TEntity> FirstOrDefaultAsync();
         //Find
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
         //Single Or Default
-        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+        TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
         //Add
         TEntity Insert(TEntity entity);
         Task<TEntity> InsertAsync(TEntity entity);

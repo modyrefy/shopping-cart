@@ -116,14 +116,14 @@ namespace Server.Infrastructure.Repositories.EFCore
         {
             return FindAsync(predicate);
         }
-        public override TEntity FirstOrDefault()
-        {
-            return Entities.FirstOrDefault();
-        }
-        public override Task<TEntity> FirstOrDefaultAsync()
-        {
-            return Entities.FirstOrDefaultAsync();
-        }
+        //public override TEntity FirstOrDefault()
+        //{
+        //    return Entities.FirstOrDefault();
+        //}
+        //public override Task<TEntity> FirstOrDefaultAsync()
+        //{
+        //    return Entities.FirstOrDefaultAsync();
+        //}
         public override IQueryable<TEntity> GetAllQueryable()
         {
             return Entities.AsQueryable();
@@ -145,11 +145,11 @@ namespace Server.Infrastructure.Repositories.EFCore
         {
             return Task.FromResult(GetById(id));
         }
-        public override TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+        public override TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
             return Entities.Where(predicate).SingleOrDefault();
         }
-        public override Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public override Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return Entities.Where(predicate).SingleOrDefaultAsync();
         }

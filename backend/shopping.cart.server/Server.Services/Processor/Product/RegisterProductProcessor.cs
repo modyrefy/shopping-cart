@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Infrastructure.Data
+namespace Server.Services.Processor.Product
 {
-    internal class Class1
+    public class RegisterProductProcessor
     {
     }
 }

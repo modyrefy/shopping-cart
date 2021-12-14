@@ -9,6 +9,7 @@ namespace Server.Model.Models
     {
         public Categories()
         {
+            Brands = new HashSet<Brands>();
             Products = new HashSet<Products>();
         }
 
@@ -17,6 +18,7 @@ namespace Server.Model.Models
         public string CategoryNameEn { get; set; }
         public bool? IsActive { get; set; }
 
+        public virtual ICollection<Brands> Brands { get; set; }
         public virtual ICollection<Products> Products { get; set; }
     }
 }

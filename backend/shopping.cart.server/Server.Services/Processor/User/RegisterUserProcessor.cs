@@ -31,11 +31,11 @@ namespace Server.Services.Processor.User
             ActiveUserContext activeUserContext = null;
             List<ValidationError> validationList = DoValidation(request);
             //throw new Exception("xxxxxx");
-;            if (validationList == null || validationList.Count == 0)
+            if (validationList == null || validationList.Count == 0)
             {
                 Users userEntity = RequestContext.Mapper.Map<Users>(request);
-                userEntity = await this.RequestContext.Repositories.UsersRepository.InsertAsync(userEntity);
-                await this.RequestContext.Repositories.UsersRepository.SaveChangesAsync();
+                userEntity = await this.RequestContext.Repositories.UserRepository.InsertAsync(userEntity);
+                await this.RequestContext.Repositories.UserRepository.SaveChangesAsync();
                 activeUserContext=this.RequestContext.Mapper.Map<ActiveUserContext>(userEntity); 
             }
             return new ResponseBase<ActiveUserContext>()
@@ -60,7 +60,7 @@ namespace Server.Services.Processor.User
                 }
                 else
                 { 
-                var user=this.RequestContext.Repositories.UsersRepository.SingleOrDefault(p=>p.UserName.ToLower().Trim() == request.UserName.ToLower());
+                var user=this.RequestContext.Repositories.UserRepository.FirstOrDefault(p=>p.UserName.ToLower().Trim() == request.UserName.ToLower());
                     if (user != null)
                     {
                         validationList.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("user_name_already_exist") });
@@ -99,13 +99,13 @@ namespace Server.Services.Processor.User
                         validationList.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("UserState_missing") });
                     }
 
-                    if (RegularExpressionValidation.Instance.Validate(request.Email, RegExResource.EmailRegEx, true))
+                    if (RegularExpressionValidation.Instance.Validate(request.Email, RegExResource.EmailRegEx, true)==false)
                     {
                         validationList.Add(new ValidationError() {
                         ErrorMessage=this.ValidationMessages.GetString("email_missing_or_not_valid"),
                         });
                     }
-                    if (RegularExpressionValidation.Instance.Validate(request.Mobile, RegExResource.MobileRegEx, true))
+                    if (RegularExpressionValidation.Instance.Validate(request.Mobile, RegExResource.MobileRegEx, true)==false)
                     {
                         validationList.Add(new ValidationError()
                         {

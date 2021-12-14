@@ -85,7 +85,7 @@ namespace Server.Api.Controllers
             var pt1 = _requestContext.Repositories.TestRepository.SearchAsync("abc", "123").GetAwaiter().GetResult();
             //var px=collection.BrandsRepository.GetAll();
             //var px1 = collection.BrandsRepository.GetAll();
-            var px = _requestContext.Repositories.BrandsRepository.GetAll();
+            var px = _requestContext.Repositories.BrandRepository.GetAll();
             var locals = this._requestContext.GetLocalResource<Abc>();
             var abx = locals.GetAllStrings(false);
             var abx1 = locals.GetString("abc");

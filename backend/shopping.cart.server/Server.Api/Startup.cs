@@ -25,6 +25,7 @@ namespace Server.Api
         {
             services.AddAuthenticationExtenison(Configuration);
             //services.AddControllers();
+           // services.AddResponseStatusFilterExtension();
             services.AddControllersExtenison();
             services.AddRepositoryExtension(Configuration);
             services.AddRequestContextExtension();
@@ -34,8 +35,8 @@ namespace Server.Api
             services.AddMemoryCachingExtenison();
             services.AddRedisCachingExtenison(Configuration);
             services.AddSqlCachingExtenison(Configuration);
+            
             services.AddSwaggerExtension();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

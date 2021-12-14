@@ -21,14 +21,14 @@ namespace Server.Core.BaseClasses
         public abstract List<TEntity> GetAll();
         public abstract Task<List<TEntity>> GetAllAsync();
         //First Or Default
-        public abstract TEntity FirstOrDefault();
-        public abstract Task<TEntity> FirstOrDefaultAsync();
+        //public abstract TEntity FirstOrDefault();
+        //public abstract Task<TEntity> FirstOrDefaultAsync();
         //Find
         public abstract IEnumerable<TEntity> Find(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
         public abstract Task<IEnumerable<TEntity>> FindAsync(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
         //Single Or Default
-        public abstract TEntity SingleOrDefault(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
-        public abstract Task<TEntity> SingleOrDefaultAsync(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
+        public abstract TEntity FirstOrDefault(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
+        public abstract Task<TEntity> FirstOrDefaultAsync(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
         //Add
         public abstract TEntity Insert(TEntity entity);
         public abstract Task<TEntity> InsertAsync(TEntity entity);

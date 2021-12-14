@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Server.Model.Dto.Base;
+using System;
 
 namespace Server.Model.Dto.User
 {
-    public class ActiveUserContext
+    public class ActiveUserContext: BaseClass
     {
         public int UserId { get; set; }
         public string UserName { get; set; }

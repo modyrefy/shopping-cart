@@ -28,7 +28,7 @@ namespace Server.Services.Processor.User
             List<ValidationError> validationList = DoValidation(request);
             if (validationList == null || validationList.Count == 0)
             {
-                var query = (from p in this.RequestContext.Repositories.UsersRepository.GetAllQueryable().Include(p => p.UserRole).Include(p => p.UserState) select p);
+                var query = (from p in this.RequestContext.Repositories.UserRepository.GetAllQueryable().Include(p => p.UserRole).Include(p => p.UserState) select p);
                 query = query.Where(p => p.UserName.ToLower().Trim() == request.Username.ToLower().Trim());
                 query = query.Where(p => p.Password.Trim() == request.Password.Trim());
                 var result = query.FirstOrDefaultAsync();

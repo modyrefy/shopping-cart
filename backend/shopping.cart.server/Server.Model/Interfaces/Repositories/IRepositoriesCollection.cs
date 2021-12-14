@@ -6,9 +6,11 @@ namespace Server.Model.Interfaces.Repositories
     public interface IRepositoriesCollection
     {
         #region Entities
-        public IRepository<Brands> BrandsRepository { get; }
-        public IRepository<Users> UsersRepository { get; }
-        public IRepository<ExceptionLogs> ExceptionLogsRepository { get; }
+        public IRepository<object> Repository { get; }
+        public IRepository<Brands> BrandRepository { get; }
+        public IRepository<Categories> CategoryRepository { get; }
+        public IRepository<Users> UserRepository { get; }
+        public IRepository<ExceptionLogs> ExceptionLogRepository { get; }
         #endregion
         //public IQueryable<T> CreateExpression1<T>(IQueryable<T> recordSet, string columnName, string value, bool exact = false);
         #region Sp

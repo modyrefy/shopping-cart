@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Server.Model.Dto.Brand;
 using Server.Model.Dto.User;
 using Server.Model.Models;
 
@@ -14,6 +15,10 @@ namespace Server.Core.Mapper
             CreateMap<Users,ActiveUserContext>()
                 .ForMember(s=>s.UserRole,c=>c.MapFrom(m=>m.UserRole.UserRole))
                 .ForMember(s => s.UserState, c => c.MapFrom(m => m.UserState.UserState))
+                ;
+            CreateMap<BrandModel,Brands>().ReverseMap()
+                .ForMember(s=>s.CategoryNameEn,c=>c.MapFrom(m=>m.Category.CategoryNameEn))
+                .ForMember(s => s.CategoryNameAr, c => c.MapFrom(m => m.Category.CategoryNameAr))
                 ;
         }
     }

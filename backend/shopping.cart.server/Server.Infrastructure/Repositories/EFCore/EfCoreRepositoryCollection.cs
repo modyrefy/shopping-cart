@@ -21,10 +21,12 @@ namespace Server.Infrastructure.Repositories.EFCore
         //        return brandsRepository;
         //    } }
 
-        public IRepository<Brands> BrandsRepository =>  new EfCoreRepository<Brands>(this.DbContext);
-        public IRepository<Users> UsersRepository => new EfCoreRepository<Users>(this.DbContext);
-        public IRepository<ExceptionLogs> ExceptionLogsRepository => new EfCoreRepository<ExceptionLogs>(this.DbContext);
+        public IRepository<Brands> BrandRepository => new EfCoreRepository<Brands>(this.DbContext);
+        public IRepository<Categories> CategoryRepository => new EfCoreRepository<Categories>(this.DbContext);
+        public IRepository<Users> UserRepository => new EfCoreRepository<Users>(this.DbContext);
+        public IRepository<ExceptionLogs> ExceptionLogRepository => new EfCoreRepository<ExceptionLogs>(this.DbContext);
         public ITestRepository TestRepository => new CustomTestRepository(DbContext);
+        public IRepository<object> Repository => new EfCoreRepository<object>(this.DbContext);
         // public  ITestRepository TestRepository =>new TestRepository(DbContext);
     }
 }

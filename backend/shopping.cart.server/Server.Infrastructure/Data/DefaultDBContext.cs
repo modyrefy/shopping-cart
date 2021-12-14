@@ -53,6 +53,12 @@ namespace Server.Infrastructure.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.Brands)
+                    .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Brands_Categories");
             });
 
             modelBuilder.Entity<Categories>(entity =>

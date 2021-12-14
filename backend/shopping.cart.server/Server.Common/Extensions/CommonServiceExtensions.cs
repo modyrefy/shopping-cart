@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Server.Common.Filters;
 using Server.Common.Helpers;
 using Server.Core;
 using Server.Core.Interfaces.Caching;
@@ -36,7 +37,7 @@ namespace Server.Common.Extensions
                     .RequireAuthenticatedUser()
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
-                // options.Filters.Add(new MySampleActionFilter());
+                options.Filters.Add(new ResponseStatusFilter());
             });
 
             return services;
@@ -96,7 +97,6 @@ namespace Server.Common.Extensions
 
             return services;
         }
-
         public static IServiceCollection AddConfigurationExtenison(this IServiceCollection services, IConfiguration configuration)
         {
             var config = new Model.Dto.Configuration.SettingConfiguration() {
@@ -185,6 +185,11 @@ namespace Server.Common.Extensions
         public static IServiceCollection AddMappingProfileExtension(this IServiceCollection services)
         {
             services.AddAutoMapper(r => { r.AddProfile(new MappingProfile()); });
+            return services;
+        }
+        public static IServiceCollection AddResponseStatusFilterExtension(this IServiceCollection services)
+        {
+            services.AddScoped<ResponseStatusFilter>();
             return services;
         }
 
