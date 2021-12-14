@@ -1,27 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Server.Core.Interfaces.Repositories;
 using Server.Model.Dto.User;
-using Server.Services.Processor;
+using Server.Model.Interfaces.Context;
+using Server.Services.Processor.User;
 using System;
 using System.Threading.Tasks;
 
 namespace Server.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/authenticate")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        private IConfiguration _config;
+        #region constructor
         private readonly IRequestContext _requestContext;
-        public AuthenticateController(IConfiguration config , IRequestContext requestContext)
+        public AuthenticateController(IRequestContext requestContext)
         {
-            _config = config;
             _requestContext = requestContext;
         }
+        #endregion
+        #region post
         [AllowAnonymous]
-        //[Route("authenticate")]
         [HttpPost]
         public async Task<IActionResult> Authenticate([FromBody] UserAuthenticateRequestModel login)
         {
@@ -33,7 +32,7 @@ namespace Server.Api.Controllers
             //    var tokenString = GenerateJSONWebToken(user);
             //    response = Ok(new { token = tokenString });
             //}
-           
+            // throw new System.Exception("general error occurred");
             AuthincateUserProcessor processor;
             using ((processor = new AuthincateUserProcessor(_requestContext)) as IDisposable)
             {
@@ -46,6 +45,9 @@ namespace Server.Api.Controllers
             }
         }
 
+       
+        #endregion
+        #region get
         [HttpGet]
         [Route("test")]
         public IActionResult Test()
@@ -57,5 +59,6 @@ namespace Server.Api.Controllers
                 throw new Exception("general error occurred");
             return Ok(Guid.NewGuid().ToString());
         }
+        #endregion
     }
 }

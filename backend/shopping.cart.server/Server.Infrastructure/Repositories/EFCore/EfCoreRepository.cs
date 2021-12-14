@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using Server.Core.BaseClasses;
 using Server.Core.Extensions;
-using Server.Core.Interfaces.Repositories;
 using Server.Infrastructure.Data;
+using Server.Model.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,6 +130,7 @@ namespace Server.Infrastructure.Repositories.EFCore
         }
         public override List<TEntity> GetAll()
         {
+            
             return Entities.ToList();
         }
         public override Task<List<TEntity>> GetAllAsync()
@@ -236,6 +237,10 @@ namespace Server.Infrastructure.Repositories.EFCore
         {
            return  this.Context.Database.RollbackTransactionAsync();
             //return Task.CompletedTask;
+        }
+        public override void ClearChangeTracker()
+        {
+            this.Context.ChangeTracker.Clear();
         }
         public override int SaveChanges()
         {

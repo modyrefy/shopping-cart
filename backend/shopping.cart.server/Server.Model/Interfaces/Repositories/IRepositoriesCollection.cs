@@ -1,7 +1,7 @@
 ﻿using Server.Model.Interfaces.Repositories;
 using Server.Model.Models;
 
-namespace Server.Core.Interfaces.Repositories
+namespace Server.Model.Interfaces.Repositories
 {
     public interface IRepositoriesCollection
     {

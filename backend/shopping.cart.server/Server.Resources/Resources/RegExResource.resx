@@ -117,49 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="address_missing" xml:space="preserve">
-    <value>address missing</value>
+  <data name="AuthorityNameArRegEx" xml:space="preserve">
+    <value>^[\u0621-\u064A\u0660-\u0669 0-9  \\()@$'/&amp;\0,._-]+$</value>
+    <comment>^[\u0621-\u064A0-9-%*=!@#$&amp;()\\-`.+,/\ ]+$</comment>
   </data>
-  <data name="city_missing" xml:space="preserve">
-    <value>city name missing</value>
+  <data name="AuthorityNameEnRegEx" xml:space="preserve">
+    <value>^[a-z A-Z 0-9 \\\\()@$'/&amp;\\0,._-]+$</value>
   </data>
-  <data name="country_missing" xml:space="preserve">
-    <value>select country</value>
+  <data name="AwardNameArRegEx" xml:space="preserve">
+    <value>^[\u0621-\u064A\u0660-\u0669 0-9  \\()@$'/&amp;\0,._-]+$</value>
+    <comment>^[\u0621-\u064A0-9-%*=!@#$&amp;()\\-`.+,/\ ]+$</comment>
   </data>
-  <data name="email_missing_or_not_valid" xml:space="preserve">
-    <value>email address or not valid format please check it</value>
+  <data name="AwardNameEnRegEx" xml:space="preserve">
+    <value>^[a-z A-Z 0-9 \\\\()@$'/&amp;\\0,._-]+$</value>
   </data>
-  <data name="mobile_missing_or_not_valid" xml:space="preserve">
-    <value>mobile number or not valid format please check it</value>
+  <data name="EmailRegEx" xml:space="preserve">
+    <value>^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$</value>
   </data>
-  <data name="ParticipantName_missing" xml:space="preserve">
-    <value>participant name missing</value>
+  <data name="FaceBookUrlRegEx" xml:space="preserve">
+    <value>(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?</value>
   </data>
-  <data name="password_missing" xml:space="preserve">
-    <value>password is minnsing</value>
+  <data name="InstagramUrlRegEx" xml:space="preserve">
+    <value>(https?)?:?(www?)?instagram\.com/[a-zA-Z0-9_]</value>
+    <comment>(https?:\/\/www\.)?instagram\.com(\/p\/\w+\/?)</comment>
   </data>
-  <data name="request_not_valid" xml:space="preserve">
-    <value>Request Not Valid</value>
+  <data name="LinkedInUrlRegEx" xml:space="preserve">
+    <value>^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$</value>
   </data>
-  <data name="state_missing" xml:space="preserve">
-    <value>state name missing</value>
+  <data name="MobileRegEx" xml:space="preserve">
+    <value>^(?:\+971|971|00971|0)?(?:50|51|52|53|54|55|56|58|2|3|4|6|7|9)\d{7}$</value>
   </data>
-  <data name="user name or password no valid" xml:space="preserve">
-    <value>user name or password no valid</value>
+  <data name="Password" xml:space="preserve">
+    <value>^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$</value>
   </data>
-  <data name="UserRole_missing" xml:space="preserve">
-    <value>select user role</value>
+  <data name="PersonNameArRegEx" xml:space="preserve">
+    <value>^[\u0621-\u064A\u0660-\u0669 \\]+$</value>
+    <comment>^[\\u0621-\\u064A\\u0660-\\u0669 ']+$     ^[\u0600-\u06FF]+$</comment>
   </data>
-  <data name="UserState_missing" xml:space="preserve">
-    <value>select user state</value>
+  <data name="PersonNameEnRegEx" xml:space="preserve">
+    <value>^[a-z A-Z  \\\\()@$'/&amp;\\0,._-]+$</value>
+    <comment>^[a-z A-Z .']+$</comment>
   </data>
-  <data name="user_name_already_exist" xml:space="preserve">
-    <value>user name already exist please try another name</value>
+  <data name="TwitterUrlRegEx" xml:space="preserve">
+    <value>(https?)?:?(www?)?twitter\.com/[a-zA-Z0-9_]</value>
+    <comment>/http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)/</comment>
   </data>
-  <data name="user_name_missing" xml:space="preserve">
-    <value>user name missing</value>
+  <data name="UaeIdNumberRegEx" xml:space="preserve">
+    <value>784\d{12}$</value>
   </data>
-  <data name="user_Unauthorized" xml:space="preserve">
-    <value>Unauthorized login credentials not valid</value>
+  <data name="UserName" xml:space="preserve">
+    <value>^[a-zA-Z][._a-zA-Z0-9]{5,11}</value>
+  </data>
+  <data name="WebSiteRegEx" xml:space="preserve">
+    <value>^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$</value>
+  </data>
+  <data name="YouTubeUrlRegEx" xml:space="preserve">
+    <value>^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+</value>
   </data>
 </root>

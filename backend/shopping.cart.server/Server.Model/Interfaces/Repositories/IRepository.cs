@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Server.Core.Interfaces.Repositories
+namespace Server.Model.Interfaces.Repositories
 {
     public interface IRepository<TEntity,TPrimaryKeyType> where TEntity : class
     {
@@ -61,6 +61,8 @@ namespace Server.Core.Interfaces.Repositories
         public Task<int> SaveChangesAsync();
         public void RollbackTransaction();
         public  Task RollbackTransactionAsync();
+        public void ClearChangeTracker();
+
         //CreateExpression
         public IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, string value, bool exact = false);
         public  IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, decimal? value);

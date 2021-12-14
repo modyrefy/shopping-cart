@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
-using Server.Core.Interfaces.Repositories;
 using Server.Model.Dto.User;
-using System;
+using Server.Model.Interfaces.Context;
 using System.Linq;
 
 namespace Server.Common.Helpers

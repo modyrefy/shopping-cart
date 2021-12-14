@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Localization;
 using Server.Core.BaseClasses;
-using Server.Core.Interfaces.Repositories;
 using Server.Model.Dto;
 using Server.Model.Dto.User;
+using Server.Model.Interfaces.Context;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Services.Processor
+namespace Server.Services.Processor.User
 {
     public class AuthincateUserProcessor : ProcessorBase<UserAuthenticateRequestModel ,ActiveUserContext>
     {
@@ -28,7 +28,7 @@ namespace Server.Services.Processor
             if (validationList == null || validationList.Count == 0)
             {
                 activeUserContext = await this.RequestContext.Repositories.TestRepository.AuthincateUser(request);
-                throw new System.Exception("general error occurred");
+               // throw new System.Exception("general error occurred");
                 if (activeUserContext != null)
                 {
                   token=  Helper.JwtHelper.Instance.GenerateJSONWebToken(

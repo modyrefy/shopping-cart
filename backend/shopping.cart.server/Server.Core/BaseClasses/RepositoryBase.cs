@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using Server.Core.Interfaces.Repositories;
+using Server.Model.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +56,7 @@ namespace Server.Core.BaseClasses
         public abstract Task<int> SaveChangesAsync();
         public abstract void RollbackTransaction();
         public abstract Task RollbackTransactionAsync();
-
+        public abstract void ClearChangeTracker();
         //CreateExpression
         public abstract IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, string value, bool exact = false);
         public abstract IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, decimal? value);

@@ -1,5 +1,4 @@
-﻿using Server.Core.Interfaces.Repositories;
-using Server.Infrastructure.Data;
+﻿using Server.Infrastructure.Data;
 using Server.Model.Interfaces.Repositories;
 using Server.Model.Models;
 

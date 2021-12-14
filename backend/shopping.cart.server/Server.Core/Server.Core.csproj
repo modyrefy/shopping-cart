@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Server.Resources\Server.Resources.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\Repositories\" />
+  </ItemGroup>
+
 </Project>

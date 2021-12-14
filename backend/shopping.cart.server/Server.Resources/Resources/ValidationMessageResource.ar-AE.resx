@@ -117,19 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="address_missing" xml:space="preserve">
+    <value>address missing (ar)</value>
+  </data>
+  <data name="city_missing" xml:space="preserve">
+    <value>city name missing (ar)</value>
+  </data>
+  <data name="country_missing" xml:space="preserve">
+    <value>select country (ar)</value>
+  </data>
+  <data name="email_missing_or_not_valid" xml:space="preserve">
+    <value>email address or not valid format please check it (ar)</value>
+  </data>
+  <data name="mobile_missing_or_not_valid" xml:space="preserve">
+    <value>mobile number or not valid format please check it (ar)</value>
+  </data>
+  <data name="ParticipantName_missing" xml:space="preserve">
+    <value>participant name missing (ar)</value>
+  </data>
   <data name="password_missing" xml:space="preserve">
-    <value>password is minnsing ar</value>
+    <value>password is minnsing (ar)</value>
   </data>
   <data name="request_not_valid" xml:space="preserve">
     <value>الطلب غير صالح</value>
+    <comment> (ar)</comment>
+  </data>
+  <data name="state_missing" xml:space="preserve">
+    <value>state name missing (ar)</value>
   </data>
   <data name="user name or password no valid" xml:space="preserve">
-    <value>user name or password no valid ar</value>
+    <value>user name or password no valid (ar)</value>
+  </data>
+  <data name="UserRole_missing" xml:space="preserve">
+    <value>select user role (ar)</value>
+  </data>
+  <data name="UserState_missing" xml:space="preserve">
+    <value>select user state (ar)</value>
+  </data>
+  <data name="user_name_already_exist" xml:space="preserve">
+    <value>user name already exist please try another name (ar)</value>
   </data>
   <data name="user_name_missing" xml:space="preserve">
-    <value>user name missing ar</value>
+    <value>user name missing (ar)</value>
   </data>
   <data name="user_Unauthorized" xml:space="preserve">
-    <value>Unauthorized login credentials not valid ar</value>
+    <value>Unauthorized login credentials not valid (ar)</value>
   </data>
 </root>

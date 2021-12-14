@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Server.Core.BaseClasses;
-using Server.Core.Interfaces.Repositories;
 using Server.Model.Dto;
 using Server.Model.Dto.User;
+using Server.Model.Interfaces.Context;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Services.Processor
+namespace Server.Services.Processor.User
 {
     public class AuthincateUserUsingAutoMapperProcessor : ProcessorBase<UserAuthenticateRequestModel, ActiveUserContext>
     {
