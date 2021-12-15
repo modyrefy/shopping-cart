@@ -4,6 +4,7 @@ using Server.Core.BaseClasses;
 using Server.Model.Dto;
 using Server.Model.Dto.Brand;
 using Server.Model.Interfaces.Context;
+using Server.Model.Models;
 using Server.Resources.Resources;
 using System;
 using System.Collections.Generic;
@@ -26,17 +27,29 @@ namespace Server.Services.Processor.Brand
             throw new NotImplementedException();
         }
 
-        public override Task<ResponseBase<BrandModel>> DoProcessAsync(BrandModel request)
+        public override async Task<ResponseBase<BrandModel>> DoProcessAsync(BrandModel request)
         {
-            throw new NotImplementedException();
+            List<ValidationError> errors = DoValidation(request);
+            if (errors == null || errors.Count == 0)
+            {
+                Brands entity = RequestContext.Mapper.Map<Brands>(request);
+                entity = await this.RequestContext.Repositories.BrandRepository.InsertAsync(entity);
+                await this.RequestContext.Repositories.Repository.SaveChangesAsync();
+                request = this.RequestContext.Mapper.Map<BrandModel>(entity);
+            }
+            return new ResponseBase<BrandModel>()
+            {
+                Result =errors==null|| errors.Count==0? request:null,
+                Errors = errors
+            };
         }
 
         public override List<ValidationError> DoValidation(BrandModel request)
         {
-            List<ValidationError> validationList = new();
+            List<ValidationError> errors = new();
             if (request == null)
             {
-                validationList.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("request_not_valid") });
+                errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("request_not_valid") });
             }
             else
             {
@@ -44,29 +57,29 @@ namespace Server.Services.Processor.Brand
                 {
                     if (this.RequestContext.Repositories.BrandRepository.GetById(request.BrandId) == null)
                     {
-                        validationList.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("brand_not_exist") });
+                        errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("brand_not_exist") });
                     }
                 }
                 if (this.RequestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
                 {
-                    validationList.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("category_not_exist") });
+                    errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("category_not_exist") });
                 }
                 if (RegularExpressionValidation.Instance.Validate(request.BrandNameAr, RegExResource.PersonNameArRegEx, true) == false)
                 {
-                    validationList.Add(new ValidationError()
+                    errors.Add(new ValidationError()
                     {
-                        ErrorMessage = this.ValidationMessages.GetString(""),
+                        ErrorMessage = this.ValidationMessages.GetString("arabic_name_missing_or_not_valid"),
                     });
                 }
                 if (RegularExpressionValidation.Instance.Validate(request.BrandNameEn, RegExResource.PersonNameEnRegEx, true) == false)
                 {
-                    validationList.Add(new ValidationError()
+                    errors.Add(new ValidationError()
                     {
-                        ErrorMessage = this.ValidationMessages.GetString(""),
+                        ErrorMessage = this.ValidationMessages.GetString("english_name_missing_or_not_valid"),
                     });
                 }
             }
-            return validationList;
+            return errors;
         }
         #endregion
     }

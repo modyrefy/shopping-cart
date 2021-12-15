@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Server.Core.Interfaces.Base
 {
-    public interface IResponseBase
+    public interface IResponseBase 
     {
         public DateTime ResponseTime { get; set; }
         public int RoecordCount { get; set; }

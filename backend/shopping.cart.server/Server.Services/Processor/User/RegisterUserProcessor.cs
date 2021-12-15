@@ -30,7 +30,6 @@ namespace Server.Services.Processor.User
         {
             ActiveUserContext activeUserContext = null;
             List<ValidationError> validationList = DoValidation(request);
-            //throw new Exception("xxxxxx");
             if (validationList == null || validationList.Count == 0)
             {
                 Users userEntity = RequestContext.Mapper.Map<Users>(request);

@@ -120,6 +120,9 @@
   <data name="address_missing" xml:space="preserve">
     <value>address missing</value>
   </data>
+  <data name="arabic_name_missing_or_not_valid" xml:space="preserve">
+    <value>arabic name missing or not valid format</value>
+  </data>
   <data name="brand_not_exist" xml:space="preserve">
     <value>brand not exist</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="email_missing_or_not_valid" xml:space="preserve">
     <value>email address or not valid format please check it</value>
+  </data>
+  <data name="english_name_missing_or_not_valid" xml:space="preserve">
+    <value>english name missing or not valid format</value>
   </data>
   <data name="mobile_missing_or_not_valid" xml:space="preserve">
     <value>mobile number or not valid format please check it</value>
