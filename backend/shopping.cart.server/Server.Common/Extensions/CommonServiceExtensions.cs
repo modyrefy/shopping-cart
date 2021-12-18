@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -190,6 +191,11 @@ namespace Server.Common.Extensions
         public static IServiceCollection AddResponseStatusFilterExtension(this IServiceCollection services)
         {
             services.AddScoped<ResponseStatusFilter>();
+            return services;
+        }
+        public static IServiceCollection AddHttpContextAccessorExtension(this IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             return services;
         }
 

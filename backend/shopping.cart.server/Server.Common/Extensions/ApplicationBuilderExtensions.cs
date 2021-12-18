@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Server.Model.Interfaces.Context;
+using System.Linq;
 
 namespace Server.Common.Extensions
 {
@@ -17,5 +19,7 @@ namespace Server.Common.Extensions
 
             return app;
         }
+
+       
     }
 }

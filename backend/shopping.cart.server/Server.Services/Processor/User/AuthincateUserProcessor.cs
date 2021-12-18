@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Localization;
 using Server.Core.BaseClasses;
+using Server.Core.Manager;
 using Server.Model.Dto;
 using Server.Model.Dto.User;
 using Server.Model.Interfaces.Context;
@@ -31,7 +32,7 @@ namespace Server.Services.Processor.User
                // throw new System.Exception("general error occurred");
                 if (activeUserContext != null)
                 {
-                  token=  Helper.JwtHelper.Instance.GenerateJSONWebToken(
+                  token=  JwtManager.Instance.GenerateJSONWebToken(
                         new List<KeyValuePair<string, string>>() { 
                          new KeyValuePair<string, string>("UserId",activeUserContext.UserId.ToString())  
                         },

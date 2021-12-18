@@ -13,8 +13,9 @@ namespace Server.Common.Filters
         {
             try
             {
-                var result = ((Microsoft.AspNetCore.Mvc.ObjectResult)context.Result).Value;
-                if (result is IResponseBase @base)
+                //var result = ((Microsoft.AspNetCore.Mvc.ObjectResult)context.Result).Value;
+                var result = (Microsoft.AspNetCore.Mvc.ObjectResult)context.Result;
+                if (result!=null && result.Value!=null && result.Value is IResponseBase @base)
                 {
                     switch (context.HttpContext.Response.StatusCode)
                     {

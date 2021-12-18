@@ -35,7 +35,7 @@ namespace Server.Api
             services.AddMemoryCachingExtenison();
             services.AddRedisCachingExtenison(Configuration);
             services.AddSqlCachingExtenison(Configuration);
-            
+            services.AddHttpContextAccessorExtension();
             services.AddSwaggerExtension();
         }
 

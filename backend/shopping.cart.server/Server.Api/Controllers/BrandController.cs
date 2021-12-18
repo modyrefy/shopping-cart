@@ -26,14 +26,13 @@ namespace Server.Api.Controllers
         #region post
         [HttpPost]
         [Route("register")]
-        public async Task<ResponseBase<BrandModel>> RegisterUser([FromBody] BrandModel request)
+        public async Task<ResponseBase<BrandModel>> RegisterBrand([FromBody] BrandModel request)
         {
             RegisterBrandProcessor processor;
             using ((processor = new RegisterBrandProcessor(_requestContext)) as IDisposable)
             {
                 return await processor.DoProcessAsync(request);
             }
-            // return null;
         }
         #endregion
     }

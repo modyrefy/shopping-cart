@@ -33,7 +33,8 @@ namespace Server.Services.Processor.Brand
             if (errors == null || errors.Count == 0)
             {
                 Brands entity = RequestContext.Mapper.Map<Brands>(request);
-                entity = await this.RequestContext.Repositories.BrandRepository.InsertAsync(entity);
+
+                entity =  entity.BrandId==-0? await this.RequestContext.Repositories.BrandRepository.InsertAsync(entity): await this.RequestContext.Repositories.BrandRepository.UpdateAsync(entity);
                 await this.RequestContext.Repositories.Repository.SaveChangesAsync();
                 request = this.RequestContext.Mapper.Map<BrandModel>(entity);
             }

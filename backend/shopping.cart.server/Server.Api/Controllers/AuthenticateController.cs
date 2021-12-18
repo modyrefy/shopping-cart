@@ -35,6 +35,7 @@ namespace Server.Api.Controllers
             //    response = Ok(new { token = tokenString });
             //}
             // throw new System.Exception("general error occurred");
+            
             AuthincateUserProcessor processor;
             using ((processor = new AuthincateUserProcessor(_requestContext)) as IDisposable)
             {
