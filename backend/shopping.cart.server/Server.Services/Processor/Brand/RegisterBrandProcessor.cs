@@ -65,14 +65,14 @@ namespace Server.Services.Processor.Brand
                 {
                     errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("category_not_exist") });
                 }
-                if (RegularExpressionValidation.Instance.Validate(request.BrandNameAr, RegExResource.PersonNameArRegEx, true) == false)
+                if (RegularExpressionValidation.Instance.Validate(request.NameAr, RegExResource.PersonNameArRegEx, true) == false)
                 {
                     errors.Add(new ValidationError()
                     {
                         ErrorMessage = this.ValidationMessages.GetString("arabic_name_missing_or_not_valid"),
                     });
                 }
-                if (RegularExpressionValidation.Instance.Validate(request.BrandNameEn, RegExResource.PersonNameEnRegEx, true) == false)
+                if (RegularExpressionValidation.Instance.Validate(request.NameEn, RegExResource.PersonNameEnRegEx, true) == false)
                 {
                     errors.Add(new ValidationError()
                     {

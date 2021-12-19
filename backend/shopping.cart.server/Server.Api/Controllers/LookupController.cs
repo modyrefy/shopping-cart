@@ -25,7 +25,7 @@ namespace Server.Api.Controllers
         #region get
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ResponseBase<List<LookupItem>>> Get(LookupsEnum enumValue)
+        public async Task<ResponseBase<List<LookupItem>>> Get(LookupsEnum enumValue,int parentId=0)
         {
             LookupProcessor processor;
             using ((processor = new LookupProcessor(_requestContext)) as IDisposable)

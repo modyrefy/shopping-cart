@@ -42,12 +42,12 @@ namespace Server.Infrastructure.Data
             {
                 entity.HasKey(e => e.BrandId);
 
-                entity.Property(e => e.BrandNameAr)
+                entity.Property(e => e.NameAr)
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.BrandNameEn)
+                entity.Property(e => e.NameEn)
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
@@ -65,12 +65,12 @@ namespace Server.Infrastructure.Data
             {
                 entity.HasKey(e => e.CategoryId);
 
-                entity.Property(e => e.CategoryNameAr)
+                entity.Property(e => e.NameAr)
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CategoryNameEn)
+                entity.Property(e => e.NameEn)
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
@@ -84,12 +84,12 @@ namespace Server.Infrastructure.Data
             {
                 entity.HasKey(e => e.CountryId);
 
-                entity.Property(e => e.CountryNameAr)
+                entity.Property(e => e.NameAr)
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CountryNameEn)
+                entity.Property(e => e.NameEn)
                     .IsRequired()
                     .HasMaxLength(150)
                     .IsUnicode(false);

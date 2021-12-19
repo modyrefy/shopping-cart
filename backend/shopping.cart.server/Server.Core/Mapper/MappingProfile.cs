@@ -17,8 +17,8 @@ namespace Server.Core.Mapper
                 .ForMember(s => s.UserState, c => c.MapFrom(m => m.UserState.UserState))
                 ;
             CreateMap<BrandModel,Brands>().ReverseMap()
-                .ForMember(s=>s.CategoryNameEn,c=>c.MapFrom(m=>m.Category.CategoryNameEn))
-                .ForMember(s => s.CategoryNameAr, c => c.MapFrom(m => m.Category.CategoryNameAr))
+                .ForMember(s=>s.CategoryNameEn,c=>c.MapFrom(m=>m.Category.NameEn))
+                .ForMember(s => s.CategoryNameAr, c => c.MapFrom(m => m.Category.NameAr))
                 ;
         }
     }

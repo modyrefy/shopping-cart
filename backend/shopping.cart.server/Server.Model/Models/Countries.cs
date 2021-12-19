@@ -14,8 +14,8 @@ namespace Server.Model.Models
 
         public int CountryId { get; set; }
         public string Iso { get; set; }
-        public string CountryNameEn { get; set; }
-        public string CountryNameAr { get; set; }
+        public string NameEn { get; set; }
+        public string NameAr { get; set; }
         public string Iso3 { get; set; }
         public short? Code { get; set; }
         public int? PhoneCode { get; set; }

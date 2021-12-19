@@ -14,8 +14,8 @@ namespace Server.Model.Models
         }
 
         public int CategoryId { get; set; }
-        public string CategoryNameAr { get; set; }
-        public string CategoryNameEn { get; set; }
+        public string NameAr { get; set; }
+        public string NameEn { get; set; }
         public bool? IsActive { get; set; }
 
         public virtual ICollection<Brands> Brands { get; set; }
