@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Server.BusinessValidation.Validations.RegularExpression;
 using Server.Core.BaseClasses;
 using Server.Model.Dto;
@@ -8,7 +9,6 @@ using Server.Model.Models;
 using Server.Resources.Resources;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,44 +89,46 @@ namespace Server.Services.Processor.Product
             }
             else
             {
+                using var scope = RequestContext.HttpContextAccessor.HttpContext.RequestServices.CreateScope();
+                var requestContext = scope.ServiceProvider.GetRequiredService<IRequestContext>();
                 if (request.ProductId != 0)
                 {
-                    if (this.RequestContext.Repositories.ProductRepository.GetById(request.ProductId) == null)
+                    if (requestContext.Repositories.ProductRepository.GetById(request.ProductId) == null)
                     {
-                        errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("brand_not_exist") });
+                        errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("product_not_exist") });
                     }
-                    if (RegularExpressionValidation.Instance.Validate(request.NameAr, RegExResource.NameArRegEx, true) == false)
+                }
+                if (RegularExpressionValidation.Instance.Validate(request.NameAr, RegExResource.NameArRegEx, true) == false)
+                {
+                    errors.Add(new ValidationError()
                     {
-                        errors.Add(new ValidationError()
-                        {
-                            ErrorMessage = this.ValidationMessages.GetString("arabic_name_missing_or_not_valid"),
-                        });
-                    }
-                    if (RegularExpressionValidation.Instance.Validate(request.NameEn, RegExResource.NameEnRegEx, true) == false)
+                        ErrorMessage = this.ValidationMessages.GetString("arabic_name_missing_or_not_valid"),
+                    });
+                }
+                if (RegularExpressionValidation.Instance.Validate(request.NameEn, RegExResource.NameEnRegEx, true) == false)
+                {
+                    errors.Add(new ValidationError()
                     {
-                        errors.Add(new ValidationError()
-                        {
-                            ErrorMessage = this.ValidationMessages.GetString("english_name_missing_or_not_valid"),
-                        });
-                    }
-                    if (request.BrandId == 0 
-                        || 
-                        this.RequestContext.Repositories.BrandRepository.GetById(request.BrandId) == null)
+                        ErrorMessage = this.ValidationMessages.GetString("english_name_missing_or_not_valid"),
+                    });
+                }
+                if (request.BrandId == 0
+                    ||
+                   requestContext.Repositories.BrandRepository.GetById(request.BrandId) == null)
+                {
+                    errors.Add(new ValidationError()
                     {
-                        errors.Add(new ValidationError()
-                        {
-                            ErrorMessage = this.ValidationMessages.GetString("brand_not_exist"),
-                        });
-                    }
-                    if (request.CategoryId == 0
-                        ||
-                        this.RequestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
+                        ErrorMessage = this.ValidationMessages.GetString("brand_not_exist"),
+                    });
+                }
+                if (request.CategoryId == 0
+                    ||
+                    requestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
+                {
+                    errors.Add(new ValidationError()
                     {
-                        errors.Add(new ValidationError()
-                        {
-                            ErrorMessage = this.ValidationMessages.GetString("category_not_exist"),
-                        });
-                    }
+                        ErrorMessage = this.ValidationMessages.GetString("category_not_exist"),
+                    });
                 }
             }
 

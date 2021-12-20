@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Server.BusinessValidation.Validations.RegularExpression;
 using Server.Core.BaseClasses;
 using Server.Model.Dto;
@@ -8,6 +9,7 @@ using Server.Model.Models;
 using Server.Resources.Resources;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,15 +27,20 @@ namespace Server.Services.Processor.Brand
         {
             throw new NotImplementedException();
         }
-
+       
         public override async Task<ResponseBase<BrandModel>> DoProcessAsync(BrandModel request)
         {
+            //var px = this.RequestContext.Repositories.BrandRepository.GetAllQueryable().Where(p => p.BrandId == 8);
+            //var t1 = this.RequestContext.Repositories.BrandRepository.IncludeMultiple(px, c => c.Category, p => p.Products).ToList();
+            //var children = new string[] { "Category" };
+            //var ps1 = await this.RequestContext.Repositories.BrandRepository.EntityWithEagerLoad(p => p.BrandId == 8, children);
+            //var ps22 = ps1.ToList();
+            //var ps = this.RequestContext.Repositories.BrandRepository.CreateExpression(px, "userName", "123");
+            //var p1 = this.RequestContext.Repositories.BrandRepository.GetAllQueryable();
             List<ValidationError> errors = DoValidation(request);
             if (errors == null || errors.Count == 0)
             {
                 Brands entity = RequestContext.Mapper.Map<Brands>(request);
-                entity=this.RequestContext.Repositories.BrandRepository.GetById(entity.BrandId);
-                //entity.NameAr = Guid.NewGuid().ToString();
                 entity =  entity.BrandId==0? await this.RequestContext.Repositories.BrandRepository.InsertAsync(entity): await this.RequestContext.Repositories.BrandRepository.UpdateAsync(entity);
                 await this.RequestContext.Repositories.Repository.SaveChangesAsync();
                 request = this.RequestContext.Mapper.Map<BrandModel>(entity);
@@ -54,14 +61,16 @@ namespace Server.Services.Processor.Brand
             }
             else
             {
+                using var scope = RequestContext.HttpContextAccessor.HttpContext.RequestServices.CreateScope();
+                var requestContext = scope.ServiceProvider.GetRequiredService<IRequestContext>();
                 if (request.BrandId != 0)
                 {
-                    if (this.RequestContext.Repositories.BrandRepository.GetById(request.BrandId) == null)
+                    if (requestContext.Repositories.BrandRepository.GetById(request.BrandId) == null)
                     {
                         errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("brand_not_exist") });
                     }
                 }
-                if (this.RequestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
+                if (requestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
                 {
                     errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("category_not_exist") });
                 }

@@ -142,7 +142,7 @@ namespace Server.Common.Extensions
             services.AddScoped<DefaultDBContext, DefaultDBContext>();
             services.AddDbContext<DefaultDBContext>(opts =>
             {
-                opts.UseLazyLoadingProxies();
+               // opts.UseLazyLoadingProxies();
                 opts.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"));
             });
             services.AddScoped(typeof(IRepositoriesCollection), typeof(EfCoreRepositoryCollection));

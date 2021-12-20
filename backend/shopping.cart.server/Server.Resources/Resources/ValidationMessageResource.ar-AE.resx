@@ -150,6 +150,9 @@
   <data name="password_missing" xml:space="preserve">
     <value>password is minnsing (ar)</value>
   </data>
+  <data name="product_not_exist" xml:space="preserve">
+    <value>product not exist</value>
+  </data>
   <data name="request_not_valid" xml:space="preserve">
     <value>الطلب غير صالح</value>
     <comment> (ar)</comment>

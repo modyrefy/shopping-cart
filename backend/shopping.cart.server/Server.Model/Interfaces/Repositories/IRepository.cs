@@ -62,6 +62,9 @@ namespace Server.Model.Interfaces.Repositories
         public void RollbackTransaction();
         public  Task RollbackTransactionAsync();
         public void ClearChangeTracker();
+        public IQueryable<T> IncludeMultiple<T>(IQueryable<T> query, params Expression<Func<T, object>>[] includes) where T:class;
+
+        public  Task<IEnumerable<TEntity>> EntityWithEagerLoad(Expression<Func<TEntity, bool>> filter, string[] children);
 
         //CreateExpression
         public IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, string value, bool exact = false);
@@ -69,6 +72,7 @@ namespace Server.Model.Interfaces.Repositories
         public  IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, int? value);
         public  IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, bool? value);
         public  IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, List<int> values);
+
         //  public IQueryable<TEntity> CreateExpression<TEntity>(IQueryable<TEntity> recordSet, string columnName, string value, bool exact = false);
 
         //T GetById(int id);

@@ -3,6 +3,7 @@ using Server.Model.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Server.Core.BaseClasses
@@ -57,11 +58,16 @@ namespace Server.Core.BaseClasses
         public abstract void RollbackTransaction();
         public abstract Task RollbackTransactionAsync();
         public abstract void ClearChangeTracker();
+
         //CreateExpression
         public abstract IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, string value, bool exact = false);
         public abstract IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, decimal? value);
         public abstract IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, int? value);
         public abstract IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, bool? value);
         public abstract IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, List<int> values);
+
+        public abstract IQueryable<T> IncludeMultiple<T>(IQueryable<T> query, params Expression<Func<T, object>>[] includes) where T : class;
+
+        public abstract Task<IEnumerable<TEntity>> EntityWithEagerLoad(Expression<Func<TEntity, bool>> filter, string[] children);
     }
 }

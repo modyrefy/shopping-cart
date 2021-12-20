@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Server.BusinessValidation.Validations.RegularExpression;
 using Server.Core.BaseClasses;
 using Server.Model.Dto;
-using Server.Model.Dto.Brand;
 using Server.Model.Dto.Category;
 using Server.Model.Interfaces.Context;
 using Server.Model.Models;
@@ -53,9 +53,11 @@ namespace Server.Services.Processor.Category
             }
             else
             {
+                using var scope = RequestContext.HttpContextAccessor.HttpContext.RequestServices.CreateScope();
+                var requestContext = scope.ServiceProvider.GetRequiredService<IRequestContext>();
                 if (request.CategoryId != 0)
                 {
-                    if (this.RequestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
+                    if (requestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
                     {
                         errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("category_not_exist") });
                     }

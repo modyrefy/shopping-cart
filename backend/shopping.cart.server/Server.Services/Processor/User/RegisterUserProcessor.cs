@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Server.BusinessValidation.Validations.RegularExpression;
 using Server.Core.BaseClasses;
 using Server.Model.Dto;
@@ -58,8 +59,11 @@ namespace Server.Services.Processor.User
                     validationList.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("user_name_missing") });
                 }
                 else
-                { 
-                var user=this.RequestContext.Repositories.UserRepository.FirstOrDefault(p=>p.UserName.ToLower().Trim() == request.UserName.ToLower());
+                {
+                    using var scope = RequestContext.HttpContextAccessor.HttpContext.RequestServices.CreateScope();
+                    var requestContext = scope.ServiceProvider.GetRequiredService<IRequestContext>();
+
+                    var user= requestContext.Repositories.UserRepository.FirstOrDefault(p=>p.UserName.ToLower().Trim() == request.UserName.ToLower());
                     if (user != null)
                     {
                         validationList.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("user_name_already_exist") });

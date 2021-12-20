@@ -84,7 +84,7 @@ namespace Server.Common.Middleware
             List<string> allRequestHeaders = new();
             var headersKeyValuePair = context.Request.Headers.Where(x => allRequestHeaders.All(h => h != x.Key)).Select(x =>new KeyValuePair<string,string> (x.Key,x.Value));
             ExceptionLogs exceptionLogs = new() {
-                ExceptionMessage = error.Message,
+                ExceptionMessage =error.InnerException!=null?error.InnerException.Message : error.Message,
                 ExceptionSource = error.Source,
                 ExceptionDescription=error.InnerException!=null?error.InnerException.Message:error.Message,
                 ExceptionDetails=frames!=null && frames.Count!=0?JsonConvert.SerializeObject(frames):null,

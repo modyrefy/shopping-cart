@@ -226,8 +226,6 @@ namespace Server.Infrastructure.Repositories.EFCore
             //Context.SaveChanges();
             return Task.CompletedTask;
         }
-
-
         //Transactions
         public override void RollbackTransaction()
         {
@@ -269,8 +267,6 @@ namespace Server.Infrastructure.Repositories.EFCore
             //var px=Context.ChangeTracker.DetectChanges();
             await Context.Database.CommitTransactionAsync();
         }
-
-
         protected virtual EntityEntry<TEntity> AttachIfNot(TEntity entity)
         {
             var entry = Context.ChangeTracker.Entries<TEntity>().FirstOrDefault();
@@ -285,8 +281,7 @@ namespace Server.Infrastructure.Repositories.EFCore
 
             return entry;
         }
-
-        //CreateExpression
+       //CreateExpression
         public override IQueryable<T> CreateExpression<T>(IQueryable<T> recordSet, string columnName, string value, bool exact = false)
         {
             if (string.IsNullOrEmpty(value)) return recordSet;
@@ -324,30 +319,35 @@ namespace Server.Infrastructure.Repositories.EFCore
             recordSet = recordSet.Where(e => values.Contains(EF.Property<int>(e, columnName)));
             return recordSet;
         }
-       //public override IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors)
-        //{
-        //    var query = GetQueryable();
 
-        //    // if (this.RequestContext?.ActiveUserAccountInfo?.TenantId != null && this.RequestContext?.ActiveUserAccountInfo.TenantId > 0 )
-        //    // {
-        //    //     // if (typeof(IMustHaveTenant).IsAssignableFrom(typeof(TEntity)) || typeof(IMayHaveTenant).IsAssignableFrom(typeof(TEntity)))
-        //    //     // {
-        //    //     //     Expression<Func<TEntity, bool>> multiTenantFilter = e => EF.Property<int>(e, "TenantId") == this.RequestContext.ActiveUserAccountInfo.TenantId;
-        //    //     //     query = query.Where(multiTenantFilter);
-        //    //     // }
-        //    // }
+        public override IQueryable<T> IncludeMultiple<T>(IQueryable<T> query, params Expression<Func<T, object>>[] includes) where T:class
+        {
+            if (includes != null)
+            {
+                query = includes.Aggregate(query,
+                          (current, include) => current.Include(include));
+            }
 
-        //    if (!propertySelectors.IsNullOrEmpty())
-        //    {
-        //        foreach (var propertySelector in propertySelectors)
-        //        {
-        //            query = query.Include(propertySelector);
-        //        }
-        //    }
+            return query;
 
-        //    return query;
-        //}
+        }
 
+        public override async Task<IEnumerable<TEntity>> EntityWithEagerLoad(Expression<Func<TEntity, bool>> filter, string[] children)
+        {
+            try
+            {
+                IQueryable<TEntity> query = GetAllQueryable();
+                foreach (string entity in children)
+                {
+                    query = query.Include(entity);
 
-    }
+                }
+                return await query.Where(filter).ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        }
 }
