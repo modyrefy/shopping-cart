@@ -265,6 +265,8 @@ namespace Server.Infrastructure.Repositories.EFCore
         }
         public override async Task CommitTransactionAsync()
         {
+           
+            //var px=Context.ChangeTracker.DetectChanges();
             await Context.Database.CommitTransactionAsync();
         }
 

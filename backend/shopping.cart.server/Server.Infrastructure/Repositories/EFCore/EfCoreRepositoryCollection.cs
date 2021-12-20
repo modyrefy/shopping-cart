@@ -1,4 +1,5 @@
 ﻿using Server.Infrastructure.Data;
+using Server.Infrastructure.Repositories.Lookup;
 using Server.Model.Interfaces.Repositories;
 using Server.Model.Models;
 
@@ -27,6 +28,15 @@ namespace Server.Infrastructure.Repositories.EFCore
         public IRepository<ExceptionLogs> ExceptionLogRepository => new EfCoreRepository<ExceptionLogs>(this.DbContext);
         public ITestRepository TestRepository => new CustomTestRepository(DbContext);
         public IRepository<object> Repository => new EfCoreRepository<object>(this.DbContext);
+
+        public ILookupRepository LookupRepository => new LookupRepository(this.DbContext);
+
+        public IRepository<Products> ProductRepository => new EfCoreRepository<Products>(this.DbContext);
+
+        public IRepository<ProductTags> ProductTagRepository => new EfCoreRepository<ProductTags>(this.DbContext);
+
+        public IRepository<ProductImages> ProductImageRepository => new EfCoreRepository<ProductImages>(this.DbContext);
+
         // public  ITestRepository TestRepository =>new TestRepository(DbContext);
     }
 }

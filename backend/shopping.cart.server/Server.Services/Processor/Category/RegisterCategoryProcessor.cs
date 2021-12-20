@@ -3,6 +3,7 @@ using Server.BusinessValidation.Validations.RegularExpression;
 using Server.Core.BaseClasses;
 using Server.Model.Dto;
 using Server.Model.Dto.Brand;
+using Server.Model.Dto.Category;
 using Server.Model.Interfaces.Context;
 using Server.Model.Models;
 using Server.Resources.Resources;
@@ -11,41 +12,39 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.Services.Processor.Brand
+namespace Server.Services.Processor.Category
 {
-    public class RegisterBrandProcessor : ProcessorBase<BrandModel, BrandModel>
+    public class RegisterCategoryProcessor : ProcessorBase<CategoryModel, CategoryModel>
     {
         #region constructor
-        public RegisterBrandProcessor(IRequestContext context) : base(context)
+        public RegisterCategoryProcessor(IRequestContext context) : base(context)
         {
         }
         #endregion
         #region public
-        public override ResponseBase<BrandModel> DoProcess(BrandModel request)
+        public override ResponseBase<CategoryModel> DoProcess(CategoryModel request)
         {
             throw new NotImplementedException();
         }
 
-        public override async Task<ResponseBase<BrandModel>> DoProcessAsync(BrandModel request)
+        public async override Task<ResponseBase<CategoryModel>> DoProcessAsync(CategoryModel request)
         {
             List<ValidationError> errors = DoValidation(request);
             if (errors == null || errors.Count == 0)
             {
-                Brands entity = RequestContext.Mapper.Map<Brands>(request);
-                entity=this.RequestContext.Repositories.BrandRepository.GetById(entity.BrandId);
-                //entity.NameAr = Guid.NewGuid().ToString();
-                entity =  entity.BrandId==0? await this.RequestContext.Repositories.BrandRepository.InsertAsync(entity): await this.RequestContext.Repositories.BrandRepository.UpdateAsync(entity);
+                Categories entity = RequestContext.Mapper.Map<Categories>(request);
+                entity = entity.CategoryId == 0 ? await this.RequestContext.Repositories.CategoryRepository.InsertAsync(entity) : await this.RequestContext.Repositories.CategoryRepository.UpdateAsync(entity);
                 await this.RequestContext.Repositories.Repository.SaveChangesAsync();
-                request = this.RequestContext.Mapper.Map<BrandModel>(entity);
+                request = this.RequestContext.Mapper.Map<CategoryModel>(entity);
             }
-            return new ResponseBase<BrandModel>()
+            return new ResponseBase<CategoryModel>()
             {
-                Result =errors==null|| errors.Count==0? request:null,
+                Result = errors == null || errors.Count == 0 ? request : null,
                 Errors = errors
             };
         }
 
-        public override List<ValidationError> DoValidation(BrandModel request)
+        public override List<ValidationError> DoValidation(CategoryModel request)
         {
             List<ValidationError> errors = new();
             if (request == null)
@@ -54,16 +53,12 @@ namespace Server.Services.Processor.Brand
             }
             else
             {
-                if (request.BrandId != 0)
+                if (request.CategoryId != 0)
                 {
-                    if (this.RequestContext.Repositories.BrandRepository.GetById(request.BrandId) == null)
+                    if (this.RequestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
                     {
-                        errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("brand_not_exist") });
+                        errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("category_not_exist") });
                     }
-                }
-                if (this.RequestContext.Repositories.CategoryRepository.GetById(request.CategoryId) == null)
-                {
-                    errors.Add(new ValidationError() { ErrorMessage = this.ValidationMessages.GetString("category_not_exist") });
                 }
                 if (RegularExpressionValidation.Instance.Validate(request.NameAr, RegExResource.NameArRegEx, true) == false)
                 {
@@ -79,7 +74,9 @@ namespace Server.Services.Processor.Brand
                         ErrorMessage = this.ValidationMessages.GetString("english_name_missing_or_not_valid"),
                     });
                 }
+
             }
+
             return errors;
         }
         #endregion

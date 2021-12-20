@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Server.Core.BaseClasses;
-using Server.Model.Dto.Brand;
+using Server.Model.Dto.Product;
 using Server.Model.Interfaces.Context;
+using Server.Services.Processor.Product;
+using System;
 using System.Threading.Tasks;
 
 namespace Server.Api.Controllers
@@ -19,10 +22,15 @@ namespace Server.Api.Controllers
         #endregion
         #region post
         [HttpPost]
+        [AllowAnonymous]
         [Route("register")]
-        public async Task<ResponseBase<BrandModel>> RegisterProduct([FromBody] BrandModel request)
+        public async Task<ResponseBase<ProductModel>> RegisterProduct([FromBody] ProductModel request)
         {
-            return null;
+            RegisterProductProcessor processor;
+            using ((processor = new RegisterProductProcessor(_requestContext)) as IDisposable)
+            {
+                return await processor.DoProcessAsync(request);
+            }
         }
         #endregion
     }

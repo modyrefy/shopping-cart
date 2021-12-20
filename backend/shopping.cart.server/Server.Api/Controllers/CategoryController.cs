@@ -1,24 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Core.BaseClasses;
-using Server.Model.Dto.Brand;
-using Server.Model.Dto.User;
+using Server.Model.Dto.Category;
 using Server.Model.Interfaces.Context;
-using Server.Services.Processor.Brand;
-using Server.Services.Processor.User;
+using Server.Services.Processor.Category;
 using System;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Server.Api.Controllers
 {
-    [Route("api/brand")]
+    [Route("api/category")]
     [ApiController]
-    public class BrandController : ControllerBase
+    public class CategoryController : ControllerBase
     {
         #region constructor
         private readonly IRequestContext _requestContext;
-        public BrandController(IRequestContext requestContext)
+        public CategoryController(IRequestContext requestContext)
         {
             _requestContext = requestContext;
         }
@@ -27,10 +24,10 @@ namespace Server.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("register")]
-        public async Task<ResponseBase<BrandModel>> RegisterBrand([FromBody] BrandModel request)
+        public async Task<ResponseBase<CategoryModel>> RegisterBrand([FromBody] CategoryModel request)
         {
-            RegisterBrandProcessor processor;
-            using ((processor = new RegisterBrandProcessor(_requestContext)) as IDisposable)
+            RegisterCategoryProcessor processor;
+            using ((processor = new RegisterCategoryProcessor(_requestContext)) as IDisposable)
             {
                 return await processor.DoProcessAsync(request);
             }

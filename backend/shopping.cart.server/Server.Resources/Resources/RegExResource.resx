@@ -147,16 +147,16 @@
   <data name="MobileRegEx" xml:space="preserve">
     <value>^(?:\+971|971|00971|0)?(?:50|51|52|53|54|55|56|58|2|3|4|6|7|9)\d{7}$</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$</value>
-  </data>
-  <data name="PersonNameArRegEx" xml:space="preserve">
+  <data name="NameArRegEx" xml:space="preserve">
     <value>^[\u0621-\u064A\u0660-\u0669 \\]+$</value>
     <comment>^[\\u0621-\\u064A\\u0660-\\u0669 ']+$     ^[\u0600-\u06FF]+$</comment>
   </data>
-  <data name="PersonNameEnRegEx" xml:space="preserve">
+  <data name="NameEnRegEx" xml:space="preserve">
     <value>^[a-z A-Z  \\\\()@$'/&amp;\\0,._-]+$</value>
     <comment>^[a-z A-Z .']+$</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$</value>
   </data>
   <data name="TwitterUrlRegEx" xml:space="preserve">
     <value>(https?)?:?(www?)?twitter\.com/[a-zA-Z0-9_]</value>

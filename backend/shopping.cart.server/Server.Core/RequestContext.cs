@@ -6,6 +6,7 @@ using Server.Core.Interfaces.Caching;
 using Server.Model.Dto.Configuration;
 using Server.Model.Dto.User;
 using Server.Model.Enums;
+using Server.Model.Interfaces.Caching;
 using Server.Model.Interfaces.Context;
 using Server.Model.Interfaces.Repositories;
 using System;
@@ -18,6 +19,7 @@ namespace Server.Core
         public IServiceProvider ServiceProvider { get; }
         public ActiveUserContext ActiveUserContext { get; set; }
         public IDistributedCacheManager DistributedCacheManager { get; }
+        public ICacheManager MemoryCacheManager { get; }
         public IMapper Mapper { get; }
         public SettingConfiguration Configuration { get; }
         public IHttpContextAccessor HttpContextAccessor { get; }
@@ -29,6 +31,7 @@ namespace Server.Core
             IRepositoriesCollection repositories,
             IServiceProvider serviceProvider,
             IDistributedCacheManager distributedCacheManager,
+            ICacheManager memoryCacheManager,
             IMapper mapper,
             SettingConfiguration configuration,
            IHttpContextAccessor httpContextAccessor
@@ -37,6 +40,7 @@ namespace Server.Core
             Repositories = repositories;
             ServiceProvider = serviceProvider;
             DistributedCacheManager = distributedCacheManager;
+            MemoryCacheManager = memoryCacheManager;
             Mapper = mapper;
             Configuration = configuration;
             HttpContextAccessor = httpContextAccessor;

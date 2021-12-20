@@ -29,7 +29,7 @@ namespace Server.Services.Processor.Lookup
             List<ValidationError> errors = DoValidation(request);
             if (errors == null || errors.Count == 0)
             {
-                response = LookupManager.Instance.Get(this.RequestContext, request.LookupEnum);
+                response =await LookupManager.Instance.GetAsync(request,RequestContext);
             }
             return new ResponseBase<List<LookupItem>>()
             {

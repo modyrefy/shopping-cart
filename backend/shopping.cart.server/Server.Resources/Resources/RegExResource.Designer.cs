@@ -142,29 +142,29 @@ namespace Server.Resources.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$.
-        /// </summary>
-        public static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ^[\u0621-\u064A\u0660-\u0669 \\]+$.
         /// </summary>
-        public static string PersonNameArRegEx {
+        public static string NameArRegEx {
             get {
-                return ResourceManager.GetString("PersonNameArRegEx", resourceCulture);
+                return ResourceManager.GetString("NameArRegEx", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ^[a-z A-Z  \\\\()@$&apos;/&amp;\\0,._-]+$.
         /// </summary>
-        public static string PersonNameEnRegEx {
+        public static string NameEnRegEx {
             get {
-                return ResourceManager.GetString("PersonNameEnRegEx", resourceCulture);
+                return ResourceManager.GetString("NameEnRegEx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         

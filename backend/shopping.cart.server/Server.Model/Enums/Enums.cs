@@ -3,7 +3,11 @@
     public enum LookupsEnum
     {
         None=0,
-        Brand = 1
+        Brand = 1,
+        Category=2,
+        Country=3,
+        UserRole=4,
+        ParentCategory=5,
     }
 
 
