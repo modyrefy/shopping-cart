@@ -35,7 +35,7 @@ namespace Server.Services.Processor.Lookup
             {
                 Result= response,
                 Errors = errors,
-                RoecordCount=response!=null && response.Count!=0?response.Count:0
+                RecordCount=response!=null && response.Count!=0?response.Count:0
             };
         }
 

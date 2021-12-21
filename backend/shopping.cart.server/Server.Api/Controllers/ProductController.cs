@@ -5,6 +5,7 @@ using Server.Model.Dto.Product;
 using Server.Model.Interfaces.Context;
 using Server.Services.Processor.Product;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Server.Api.Controllers
@@ -22,7 +23,7 @@ namespace Server.Api.Controllers
         #endregion
         #region post
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("register")]
         public async Task<ResponseBase<ProductModel>> RegisterProduct([FromBody] ProductModel request)
         {
@@ -30,6 +31,26 @@ namespace Server.Api.Controllers
             using ((processor = new RegisterProductProcessor(_requestContext)) as IDisposable)
             {
                 return await processor.DoProcessAsync(request);
+            }
+        }
+        #endregion
+        #region get
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("dashboard")]
+        public async Task<ResponseBase<List<ProductDashboardModelResponse>>> SearchProductDashBoard(string name = null, int brandId = 0, int categoryId = 0, int pageIndex = 0, int pageSize = 10)
+        {
+            SearchProductDashboardProcessor processor;
+            using ((processor = new SearchProductDashboardProcessor(_requestContext)) as IDisposable)
+            {
+                return await processor.DoProcessAsync(new ProductDashboardModelRequest()
+                {
+                    Name = name,
+                    CategoryId = categoryId,
+                    BrandId = brandId,
+                    PageIndex = pageIndex,
+                    PageSize = pageSize
+                });
             }
         }
         #endregion

@@ -297,6 +297,10 @@ namespace Server.Infrastructure.Data
                     .IsRequired()
                     .IsUnicode(false);
 
+                entity.Property(e => e.ProductKey)
+                   .IsRequired()
+                   .IsUnicode(false);
+
                 entity.Property(e => e.ProductNameEn)
                     .IsRequired()
                     .IsUnicode(false);

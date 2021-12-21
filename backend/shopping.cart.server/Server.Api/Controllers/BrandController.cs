@@ -25,7 +25,7 @@ namespace Server.Api.Controllers
         #endregion
         #region post
         [HttpPost]
-        [AllowAnonymous]
+       // [AllowAnonymous]
         [Route("register")]
         public async Task<ResponseBase<BrandModel>> RegisterBrand([FromBody] BrandModel request)
         {

@@ -22,7 +22,7 @@ namespace Server.Api.Controllers
         #endregion
         #region post
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("register")]
         public async Task<ResponseBase<CategoryModel>> RegisterBrand([FromBody] CategoryModel request)
         {

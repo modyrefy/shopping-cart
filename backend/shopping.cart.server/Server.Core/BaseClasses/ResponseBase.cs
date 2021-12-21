@@ -9,7 +9,7 @@ namespace Server.Core.BaseClasses
     {
         public T Result { get; set; }
         public DateTime ResponseTime { get; set; } = DateTime.Now;
-        public int RoecordCount { get; set; } = 0;
+        public int RecordCount { get; set; } = 0;
         public string Token { get; set; }
         public List<ValidationError> Errors { get; set; }
     }
